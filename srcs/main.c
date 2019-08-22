@@ -1,10 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "ft_printf.h"
 
 int	ft_printf(const char *smth, ...)
 {
-	const char **mas = &smth;
+	va_list	listv;
+
+	va_start(listv, smth);
+	printf("%s\n", va_arg(listv, char *));
+	//listv++;
+	printf("%s\n", va_arg(listv, char *));
+	printf("%s\n", va_arg(listv, char *));
+
+
+/*	const char **mas = &smth;
 	int len;
 	char *s;
 
@@ -30,6 +40,8 @@ int	ft_printf(const char *smth, ...)
 		printf("%c", *s++);
 	}
 //	printf("%s", p);
+*/
+	va_end(listv);
 	return (0);
 }
 
