@@ -3,15 +3,43 @@
 #include <string.h>
 #include "ft_printf.h"
 
+void	prints(va_list *list)
+{
+		printf("%s\n", va_arg(*list, char *));
+}
+
 int	ft_printf(const char *smth, ...)
 {
-	va_list	listv;
+	va_list	list;
+	int i;
+	int count;
+	int j;
 
-	va_start(listv, smth);
-	printf("%s\n", va_arg(listv, char *));
+	va_start(list, smth);
+	count = 0;
+	i = 0;
+	while (smth[i])
+	{
+		if (smth[i++] == '%')
+		{
+			count++;
+			i++;
+		}
+	}
+	i = 0;
+	j = 0;
+	while (smth[i])
+	{
+		while (smth[i] != '%')
+			printf("%c", smth[i++]);
+		i++;
+		i++;
+		printf("%s", va_arg(list, char *));
+	}
+
+//	printf("%s\n", smth);
+//	prints(&list);
 	//listv++;
-	printf("%s\n", va_arg(listv, char *));
-	printf("%s\n", va_arg(listv, char *));
 
 
 /*	const char **mas = &smth;
@@ -39,14 +67,13 @@ int	ft_printf(const char *smth, ...)
 	{
 		printf("%c", *s++);
 	}
-//	printf("%s", p);
-*/
-	va_end(listv);
+//	printf("%s", p);*/
+	va_end(list);
 	return (0);
 }
 
 int main(int argc, char **argv)
 {
-	ft_printf(argv[1], argv[2]);
+	ft_printf("hello %s anyway %s how %s are %s", "world", "lol", "kek", "cheburek");
 	return (0);
 }
